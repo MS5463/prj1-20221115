@@ -3,6 +3,7 @@ package com.study.controller.board;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.domain.board.BoardDto;
 import com.study.domain.board.PageInfo;
+import com.study.service.board.BoardService;
 import com.study.service.board.BoardService;
 
 @Controller
@@ -111,6 +113,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("modify")
+	@PreAuthorize("@boardSecurity.checkWriter(authentication.name, #id)")
 	public void modify(int id, Model model) {
 		BoardDto board = service.get(id);
 		model.addAttribute("board", board);
@@ -118,6 +121,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("modify")
+	@PreAuthorize("@boardSecurity.checkWriter(authentication.name, #board.id)")
 	public String modify(
 			BoardDto board, 
 			@RequestParam("files") MultipartFile[] addFiles,
@@ -136,6 +140,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("remove")
+	@PreAuthorize("@boardSecurity.checkWriter(authentication.name, #id)")
 	public String remove(int id, RedirectAttributes rttr) {
 		int cnt = service.remove(id);
 		
