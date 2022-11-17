@@ -38,7 +38,7 @@ public class CustomConfig {
 	
 	@Autowired
 	private ServletContext servletContext;
-
+	
 	@PostConstruct
 	public void init() {
 		servletContext.setAttribute("imgUrl", imgUrl);
@@ -52,7 +52,7 @@ public class CustomConfig {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.formLogin().loginPage("/member/login");
+		http.formLogin().loginPage("/member/login").defaultSuccessUrl("/board/list", true);
 		http.logout().logoutUrl("/member/logout");
 		http.csrf().disable();
 		

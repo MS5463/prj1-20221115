@@ -10,16 +10,14 @@
 </style>
 
 <%-- authorize tag --%>
-<%-- spring security expressions, 책 673P,674P --%>
+<%-- spring security expressions, 책 673,674 --%>
 <%--
-
 <sec:authorize access="isAuthenticated()">
 		<h1>로그인됨!</h1>
 </sec:authorize>
 <sec:authorize access="not isAuthenticated()">
 	<h1>로그인 안됨!</h1>
 </sec:authorize>
-
  --%>
 
 <sec:authorize access="isAuthenticated()" var="loggedIn" />
